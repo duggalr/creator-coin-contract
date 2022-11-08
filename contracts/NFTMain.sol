@@ -8,6 +8,7 @@ import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/token/ERC721/extensi
 import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/access/Ownable.sol";
 import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/utils/Counters.sol";
 import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/utils/math/SafeMath.sol";
+import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/security/ReentrancyGuard.sol";
 
 
 
@@ -95,14 +96,10 @@ contract NFTMain is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnable, 
         // pay platform
         (bool platformSent, bytes memory platformData) = payable(_platformAddress).call{value: _platformCost}("");  // send to platform
         require(platformSent, "Failed to send Ether");
-
+        
         // pay creator
         (bool sent, bytes memory data) = payable(_deployerAddress).call{value: _remainingValue}("");  // sent to creator
         require(sent, "Failed to send Ether"); 
-
-        // TODO: 
-          // vuln. to re-entranacy or other attacks? (look at ethernaut)
-          // Emitting events on fund transfer? 
 
         _runMint(_numTokens);
  
