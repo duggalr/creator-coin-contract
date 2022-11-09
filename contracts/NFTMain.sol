@@ -13,7 +13,7 @@ import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/security/ReentrancyG
 
 
 /// @custom:security-contact creatorcoin42@gmail.com
-contract NFTMain is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnable, Ownable {
+contract NFTMain is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnable, Ownable, ReentrancyGuard {
     using SafeMath for uint256;
 
     using Counters for Counters.Counter;
@@ -73,7 +73,7 @@ contract NFTMain is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnable, 
     }
 
 
-    function safeMint(uint256 _numTokens) public payable {
+    function safeMint(uint256 _numTokens) public payable nonReentrant {
       
         require( _numTokens > 0 && _numTokens <= _maxTokenPerSale, "Amount of NFTs exceeds the amount of NFTs you can purchase at a single time. Or amount requested is 0.");
 

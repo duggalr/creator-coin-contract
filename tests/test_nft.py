@@ -6,6 +6,8 @@ import brownie
 
 # PLATFORM_ADDRESS = ''
 
+ETH_PRICE = 21.45
+
 @pytest.fixture
 def token(NFTMain, accounts):
   token_name = "RahulTest"
@@ -13,7 +15,7 @@ def token(NFTMain, accounts):
   token_total_supply = 30
   max_token_per_sale = 10  
   token_uri = "https://docs.soliditylang.org/"
-  token_price_eth = 0.1
+  token_price_eth = ETH_PRICE
   token_price_gwei = token_price_eth * (10**19)  # gwei denomination
   deployer_account = accounts[0]
 
@@ -50,7 +52,7 @@ def test_owner_amount(token, accounts):
 
 def test_get_token_price(token):
   token_price = token.getTokenPrice()
-  assert token_price == ( 0.1 * (10**19) )
+  assert token_price == ( ETH_PRICE * (10**19) )
 
 
 def test_get_max_token_supply(token):
@@ -64,7 +66,7 @@ def test_get_balance_address(token, accounts):
 
 def test_get_token_total_supply(token):
   assert token.totalSupply() == 0
-
+ 
 
 def test_success_increase_max_token_supply(token):
   token.increaseTokenSupply(50, {'gas_price': 25000})
@@ -102,7 +104,7 @@ def test_success_safe_mint(token, accounts):
   initial_token_id = token.getCurrentTokenID()
 
   mint_amount = 1
-  eth_price = 0.1
+  eth_price = ETH_PRICE
   from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
   token.safeMint(mint_amount, {'value': from_account_value_amount, 'from': from_account})
   platform_fee = ( 3 * (eth_price * (10**19)) * mint_amount ) / 100
@@ -139,7 +141,7 @@ def test_zero_token_failure_safe_mint(token, accounts):
 
   with brownie.reverts("Amount of NFTs exceeds the amount of NFTs you can purchase at a single time. Or amount requested is 0."):
     mint_amount = 0
-    eth_price = 0.1
+    eth_price = ETH_PRICE
     from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
     token.safeMint(mint_amount, {'value': from_account_value_amount, 'from': from_account})
 
@@ -162,7 +164,7 @@ def test_greater_max_token_sale_failure_safe_mint(token, accounts):
 
   with brownie.reverts("Amount of NFTs exceeds the amount of NFTs you can purchase at a single time. Or amount requested is 0."):
     mint_amount = 100
-    eth_price = 0.1
+    eth_price = ETH_PRICE
     from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
     token.safeMint(mint_amount, {'value': from_account_value_amount, 'from': from_account})
 
@@ -186,7 +188,7 @@ def test_success_max_token_num_safe_mint(token, accounts):
   initial_token_id = token.getCurrentTokenID()
 
   mint_amount = 10
-  eth_price = 0.1
+  eth_price = ETH_PRICE
   from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
   token.safeMint(mint_amount, {'value': from_account_value_amount, 'from': from_account})
   platform_fee = ( 3 * (eth_price * (10**19)) * mint_amount ) / 100 # add num mint here?
@@ -249,7 +251,7 @@ def test_incorrect_total_eth_sent_two(token, accounts):
   initial_token_id = token.getCurrentTokenID()
 
   mint_amount = 2
-  eth_price = 0.11  # incorrect higher eth_price
+  eth_price = 100.11  # incorrect higher eth_price
   from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
   
   with brownie.reverts("Amount of ether sent not correct."):
@@ -276,7 +278,7 @@ def test_same_deployer_from_address(token, accounts):
   initial_token_id = token.getCurrentTokenID()
 
   mint_amount = 1
-  eth_price = 0.1
+  eth_price = ETH_PRICE
   from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
   token.safeMint(mint_amount, {'value': from_account_value_amount, 'from': from_account})
   platform_fee = ( 3 * (eth_price * (10**19)) * mint_amount ) / 100
@@ -312,7 +314,7 @@ def test_multiple_safe_mint(token, accounts):
     initial_token_id = token.getCurrentTokenID()
     
     mint_amount = 2
-    eth_price = 0.1
+    eth_price = ETH_PRICE
     from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
     token.safeMint(mint_amount, {'value': from_account_value_amount, 'from': from_account})
     platform_fee = ( 3 * (eth_price * (10**19)) * mint_amount ) / 100 # add num mint here?
@@ -348,7 +350,7 @@ def test_greater_max_token_supply_failure_safe_mint(token, accounts):
     platform_account_initial_balance = platform_account.balance()
 
     mint_amount = 1
-    eth_price = 0.1
+    eth_price = ETH_PRICE
     from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
     token.safeMint(mint_amount, {'value': from_account_value_amount, 'from': from_account})
     platform_fee = ( 3 * (eth_price * (10**19)) * mint_amount ) / 100
@@ -361,7 +363,7 @@ def test_greater_max_token_supply_failure_safe_mint(token, accounts):
 
   with brownie.reverts("Not enough tokens left to buy."):
     mint_amount = 3
-    eth_price = 0.1
+    eth_price = ETH_PRICE
     from_account_value_amount = ( eth_price * (10**19) ) * mint_amount
     token.safeMint(mint_amount, {'value': from_account_value_amount, 'from': from_account})
 
