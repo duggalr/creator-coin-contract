@@ -4,7 +4,7 @@ import brownie
 
 # ganache-cli --port 8545 --gasLimit 12000000 --accounts 10 --hardfork istanbul --mnemonic brownie
 
-PLATFORM_ADDRESS = ''
+# PLATFORM_ADDRESS = ''
 
 @pytest.fixture
 def token(NFTMain, accounts):
