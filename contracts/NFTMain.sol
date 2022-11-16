@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/token/ERC721/ERC721.sol";
-import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/access/Ownable.sol";
-import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/utils/Counters.sol";
-import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/utils/math/SafeMath.sol";
-import "OpenZeppelin/openzeppelin-contracts@4.7.3/contracts/security/ReentrancyGuard.sol";
-
+import "./contracts/token/ERC721/ERC721.sol";
+import "./contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "./contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "./contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "./contracts/access/Ownable.sol";
+import "./contracts/utils/Counters.sol";
+import "./contracts/utils/math/SafeMath.sol";
+import "./contracts/security/ReentrancyGuard.sol";
 
  
 /// @custom:security-contact creatorcoin42@gmail.com
